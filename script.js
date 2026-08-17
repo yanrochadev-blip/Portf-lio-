@@ -230,3 +230,27 @@ modal.addEventListener("click", function(e) {
         closeModal();
     }
 });
+// Animação inicial de boas-vindas
+const tlIntro = gsap.timeline();
+
+tlIntro.from(".logo", { y: -50, opacity: 0, duration: 0.8, ease: "power3.out" })
+       .from(".nav-links li", { y: -20, opacity: 0, duration: 0.5, stagger: 0.1, ease: "power2.out" }, "-=0.5")
+       .from(".dev-title", { x: -50, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.2")
+       .from(".dev-desc", { opacity: 0, duration: 1 }, "-=0.5");
+       // Animação em cascata para as tags de habilidades
+const cardsHab = gsap.utils.toArray('#habilidades .card');
+cardsHab.forEach(card => {
+    const tags = card.querySelectorAll('.tag');
+    gsap.from(tags, {
+        scrollTrigger: {
+            trigger: card,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+        },
+        y: 20,
+        opacity: 0,
+        duration: 0.4,
+        stagger: 0.1, // O segredo está aqui: atrasa a entrada de cada tag em 0.1s
+        ease: "back.out(1.5)"
+    });
+});
